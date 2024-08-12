@@ -16,10 +16,10 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "21"
-          
+       
       - name: Checkout code
         uses: actions/checkout@v4
- 
+
       - name: Perform google formatter check
         run: mvn com.spotify.fmt:fmt-maven-plugin:check
 
@@ -46,7 +46,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_REGISTRY_USER }}
           password: ${{ secrets.DOCKER_REGISTRY_PAT }} 
-          
-      - name: Push docker image
+       
+      - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_REGISTRY_USER }}/api-gateway:latest  
-
