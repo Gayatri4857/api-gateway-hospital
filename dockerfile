@@ -1,11 +1,17 @@
-# Use a base image with Java 11
-FROM openjdk:11-jre-slim
+# Use an official Ruby image as a parent image
+FROM ruby:2.7
 
-# Add a volume pointing to /tmp
-VOLUME /tmp
+# Install JDK and Maven
+RUN apt-get update && apt-get install -y openjdk-17-jdk maven
 
-# Copy the application JAR file
-COPY target/api-gateway-hospital-0.0.1-SNAPSHOT.jar app.jar
+# Install build-essential package for building native extensions
+RUN apt-get install -y build-essential
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+# Install license_finder gem
+RUN gem install license_finder
+
+# Set working directory
+WORKDIR /scan
+
+# Command to run license_finder
+ENTRYPOINT ["license_finder"]
