@@ -51,3 +51,16 @@ jobs:
        
       - name: Push Docker image
         run: docker push "${{ env.DOCKER_REGISTRY_USER }}/api-gateway-hospital:latest"
+
+  license-finder-check:
+    needs: build
+    runs-on: ubuntu-latest
+    container:
+      image: gayatri589/license-finder:latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run License Finder
+        run: license_finder
