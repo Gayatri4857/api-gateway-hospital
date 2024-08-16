@@ -2,7 +2,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: 
+    branches:
       - main
 
 jobs:
@@ -65,6 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: gayatri589/license-finder:latest
+      options: --entrypoint ""
 
     steps:
       - name: Checkout code
@@ -79,4 +80,7 @@ jobs:
             ${{ runner.os }}-m2-
 
       - name: Run License Finder
-        run: license_finder
+        run: |
+          cd <path_to_your_maven_project>
+          license_finder
+
